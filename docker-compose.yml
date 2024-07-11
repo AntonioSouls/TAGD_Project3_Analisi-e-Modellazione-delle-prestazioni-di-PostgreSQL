@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  tagd-postgres:
+    container_name: tagd-postgres
+    image: chmod84/tagd:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: benchbase
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./samples:/root/samples/
+      - ./scripts/init-db:/docker-entrypoint-initdb.d/
+      - ./scripts/benchbase:/benchbase-scripts/
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+
+volumes:
+  pgadmin:
+  pgdata:
