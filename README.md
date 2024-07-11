@@ -1,4 +1,4 @@
-# Project 3 presentation
+# Postgres performance analysis and modeling
 The purpose of the project is to model the performance of a DBMS based on your computer and the TPC-H benchmark.
 The project consists of the following points; the bottleneck should be specified for each.
 
